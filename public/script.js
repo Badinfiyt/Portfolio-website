@@ -1,0 +1,115 @@
+const canvas = document.querySelector(".hero-canvas");
+const ctx = canvas.getContext("2d");
+const toggle = document.querySelector(".theme-toggle");
+const year = document.querySelector("#year");
+const profileLocation = document.querySelector("#profile-location");
+const focusList = document.querySelector("#focus-list");
+const emailLink = document.querySelector("#email-link");
+const resumeUpdated = document.querySelector("#resume-updated");
+const resumeOpen = document.querySelector("#resume-open");
+const resumeDownload = document.querySelector("#resume-download");
+
+const particles = Array.from({ length: 58 }, (_, index) => ({
+  angle: index * 0.42,
+  orbit: 80 + (index % 9) * 32,
+  speed: 0.002 + (index % 6) * 0.0007,
+  size: 2 + (index % 5)
+}));
+
+function resizeCanvas() {
+  const ratio = window.devicePixelRatio || 1;
+  canvas.width = canvas.offsetWidth * ratio;
+  canvas.height = canvas.offsetHeight * ratio;
+  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+}
+
+function draw() {
+  const width = canvas.offsetWidth;
+  const height = canvas.offsetHeight;
+  const darkMode = document.body.classList.contains("dark");
+
+  ctx.clearRect(0, 0, width, height);
+  ctx.globalCompositeOperation = "source-over";
+
+  const gradient = ctx.createLinearGradient(0, 0, width, height);
+  gradient.addColorStop(0, darkMode ? "rgba(91, 197, 186, 0.22)" : "rgba(15, 124, 117, 0.18)");
+  gradient.addColorStop(0.55, darkMode ? "rgba(240, 200, 90, 0.12)" : "rgba(244, 201, 93, 0.18)");
+  gradient.addColorStop(1, darkMode ? "rgba(241, 141, 101, 0.2)" : "rgba(216, 111, 69, 0.18)");
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, width, height);
+
+  ctx.globalCompositeOperation = "screen";
+  particles.forEach((particle, index) => {
+    particle.angle += particle.speed;
+    const x = width * 0.67 + Math.cos(particle.angle) * particle.orbit;
+    const y = height * 0.48 + Math.sin(particle.angle * 1.35) * (particle.orbit * 0.72);
+    const radius = particle.size + Math.sin(particle.angle * 2) * 1.5;
+
+    ctx.beginPath();
+    ctx.fillStyle = index % 3 === 0
+      ? "rgba(15, 124, 117, 0.42)"
+      : index % 3 === 1
+        ? "rgba(244, 201, 93, 0.38)"
+        : "rgba(216, 111, 69, 0.34)";
+    ctx.arc(x, y, Math.max(1.5, radius), 0, Math.PI * 2);
+    ctx.fill();
+  });
+
+  requestAnimationFrame(draw);
+}
+
+function applyTheme(theme) {
+  document.body.classList.toggle("dark", theme === "dark");
+  localStorage.setItem("portfolio-theme", theme);
+}
+
+async function loadProfile() {
+  try {
+    const response = await fetch("/api/profile");
+    const profile = await response.json();
+    profileLocation.textContent = profile.location;
+    emailLink.textContent = profile.email;
+    emailLink.href = `mailto:${profile.email}`;
+    focusList.innerHTML = profile.focus.map((item) => `<li>${item}</li>`).join("");
+  } catch (error) {
+    console.warn("Profile endpoint unavailable", error);
+  }
+}
+
+async function loadResumeInfo() {
+  try {
+    const response = await fetch("/api/resume");
+    const resume = await response.json();
+
+    if (!resume.available) {
+      resumeUpdated.textContent = "Resume PDF is not available yet.";
+      return;
+    }
+
+    const updatedDate = new Date(resume.updatedAt);
+    const formattedDate = updatedDate.toLocaleDateString(undefined, {
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    });
+    resumeUpdated.textContent = `Last updated ${formattedDate}. Replace public/resume/resume.pdf to update this website.`;
+    resumeOpen.href = resume.file;
+    resumeDownload.href = resume.file;
+  } catch (error) {
+    console.warn("Resume endpoint unavailable", error);
+  }
+}
+
+toggle.addEventListener("click", () => {
+  const nextTheme = document.body.classList.contains("dark") ? "light" : "dark";
+  applyTheme(nextTheme);
+});
+
+year.textContent = new Date().getFullYear();
+applyTheme(localStorage.getItem("portfolio-theme") || "light");
+resizeCanvas();
+draw();
+loadProfile();
+loadResumeInfo();
+
+window.addEventListener("resize", resizeCanvas);

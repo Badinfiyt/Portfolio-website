@@ -1,0 +1,22 @@
+{
+  "name": "personal-portfolio-website",
+  "version": "1.0.0",
+  "description": "A personal portfolio website built with HTML, CSS, JavaScript, and Node.js.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "portfolio",
+    "html",
+    "css",
+    "javascript",
+    "node"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

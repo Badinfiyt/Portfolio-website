@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personal Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="Go to home">
+      <span class="brand-mark">AA</span>
+      <span>Ajinkya Attarde</span>
+    </a>
+
+    <nav class="nav-links" aria-label="Primary navigation">
+      <a href="#work">Work</a>
+      <a href="#skills">Skills</a>
+      <a href="#resume">Resume</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <button class="theme-toggle" type="button" aria-label="Toggle theme">
+      <span class="theme-icon">◐</span>
+    </button>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <canvas class="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero-content">
+        <p class="eyebrow">Available for web projects</p>
+        <h1>Building polished digital experiences with code, clarity, and a little spark.</h1>
+        <p class="hero-copy">
+          I create responsive websites, interactive interfaces, and practical Node.js tools
+          that feel fast, thoughtful, and easy to use.
+        </p>
+        <div class="hero-actions" aria-label="Portfolio actions">
+          <a class="button primary" href="#work">View Projects</a>
+          <a class="button secondary" href="#resume">Resume</a>
+          <a class="button secondary" href="#contact">Contact Me</a>
+        </div>
+      </div>
+      <aside class="hero-panel" aria-label="Profile snapshot">
+        <div class="status-row">
+          <span class="status-dot"></span>
+          <span id="profile-location">Toronto, Canada</span>
+        </div>
+        <div>
+          <p class="panel-label">Current Focus</p>
+          <ul class="focus-list" id="focus-list">
+            <li>Front-end UI</li>
+            <li>Node.js</li>
+            <li>Interactive Web</li>
+          </ul>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section" id="work">
+      <div class="section-heading">
+        <p class="eyebrow">Selected work</p>
+        <h2>Projects made for real users and real goals.</h2>
+      </div>
+
+      <div class="project-grid">
+        <article class="project-card">
+          <div class="project-visual visual-one"></div>
+          <div class="project-body">
+            <p class="project-type">Web App</p>
+            <h3>Studio Dashboard</h3>
+            <p>A clean admin interface for tracking clients, project stages, and deadlines.</p>
+            <div class="tags">
+              <span>HTML</span>
+              <span>CSS</span>
+              <span>JavaScript</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-visual visual-two"></div>
+          <div class="project-body">
+            <p class="project-type">Node.js</p>
+            <h3>API Toolkit</h3>
+            <p>A lightweight Express service with profile endpoints and reusable routing patterns.</p>
+            <div class="tags">
+              <span>Node</span>
+              <span>Express</span>
+              <span>REST</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-visual visual-three"></div>
+          <div class="project-body">
+            <p class="project-type">Interactive</p>
+            <h3>Motion Landing Page</h3>
+            <p>A responsive page with canvas animation, smooth scrolling, and theme controls.</p>
+            <div class="tags">
+              <span>Canvas</span>
+              <span>UI</span>
+              <span>Responsive</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section split-section" id="skills">
+      <div class="section-heading">
+        <p class="eyebrow">Skills</p>
+        <h2>Tools I use to turn ideas into working products.</h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-item">
+          <strong>HTML</strong>
+          <span>Semantic structure, accessibility, SEO-friendly content.</span>
+        </div>
+        <div class="skill-item">
+          <strong>CSS</strong>
+          <span>Responsive layouts, modern styling, design systems.</span>
+        </div>
+        <div class="skill-item">
+          <strong>JavaScript</strong>
+          <span>Dynamic interfaces, DOM logic, browser APIs.</span>
+        </div>
+        <div class="skill-item">
+          <strong>Node.js</strong>
+          <span>Express servers, JSON APIs, project tooling.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section resume-section" id="resume">
+      <div class="section-heading">
+        <p class="eyebrow">Resume</p>
+        <h2>My current technical resume.</h2>
+        <p class="resume-note" id="resume-updated">PDF updates automatically when replaced in the resume folder.</p>
+      </div>
+
+      <div class="resume-layout">
+        <div class="resume-actions">
+          <a class="button primary" id="resume-open" href="/resume/resume.pdf" target="_blank" rel="noreferrer">Open
+            PDF</a>
+          <a class="button secondary" id="resume-download" href="/resume/resume.pdf" download>Download</a>
+        </div>
+        <object class="resume-preview" data="/resume/resume.pdf" type="application/pdf" aria-label="Resume preview">
+          <p>
+            Your browser cannot preview this PDF.
+            <a href="/resume/resume.pdf">Open the resume PDF</a>.
+          </p>
+        </object>
+      </div>
+    </section>
+
+    <section class="section about-section" id="about">
+      <div>
+        <p class="eyebrow">About</p>
+        <h2>I care about work that is useful, calm, and carefully finished.</h2>
+      </div>
+      <p>
+        This portfolio is ready to customize with your real name, projects, resume links,
+        social profiles, and contact details. The structure is intentionally simple, so it is
+        easy to understand and keep improving as your work grows.
+      </p>
+    </section>
+
+    <section class="contact-section" id="contact">
+      <div>
+        <p class="eyebrow">Contact</p>
+        <h2>Have a project in mind?</h2>
+        <p>Send a note and I will get back to you soon.</p>
+      </div>
+      <a class="button primary" id="email-link" href="mailto:ajattarde@gmail.com">ajattarde@gmail.com</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>© <span id="year"></span> Ajinkya Attarde</span>
+    <a href="#home">Back to top</a>
+  </footer>
+
+  <script src="/script.js"></script>
+</body>
+
+</html>
