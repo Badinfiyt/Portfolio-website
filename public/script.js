@@ -9,6 +9,14 @@ const resumeUpdated = document.querySelector("#resume-updated");
 const resumeOpen = document.querySelector("#resume-open");
 const resumeDownload = document.querySelector("#resume-download");
 
+const pointer = {
+  active: false,
+  x: 0,
+  y: 0,
+  smoothX: 0,
+  smoothY: 0
+};
+
 const particles = Array.from({ length: 58 }, (_, index) => ({
   angle: index * 0.42,
   orbit: 80 + (index % 9) * 32,
@@ -21,6 +29,10 @@ function resizeCanvas() {
   canvas.width = canvas.offsetWidth * ratio;
   canvas.height = canvas.offsetHeight * ratio;
   ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+  if (!pointer.active) {
+    resetPointer();
+  }
 }
 
 function draw() {
@@ -39,10 +51,20 @@ function draw() {
   ctx.fillRect(0, 0, width, height);
 
   ctx.globalCompositeOperation = "screen";
+  pointer.smoothX += (pointer.x - pointer.smoothX) * 0.08;
+  pointer.smoothY += (pointer.y - pointer.smoothY) * 0.08;
+
   particles.forEach((particle, index) => {
     particle.angle += particle.speed;
-    const x = width * 0.67 + Math.cos(particle.angle) * particle.orbit;
-    const y = height * 0.48 + Math.sin(particle.angle * 1.35) * (particle.orbit * 0.72);
+    const baseX = width * 0.67 + Math.cos(particle.angle) * particle.orbit;
+    const baseY = height * 0.48 + Math.sin(particle.angle * 1.35) * (particle.orbit * 0.72);
+    const distanceX = pointer.smoothX - baseX;
+    const distanceY = pointer.smoothY - baseY;
+    const distance = Math.hypot(distanceX, distanceY);
+    const influence = pointer.active ? Math.max(0, 1 - distance / 520) : 0;
+    const drift = influence * (0.14 + (index % 6) * 0.018);
+    const x = baseX + distanceX * drift;
+    const y = baseY + distanceY * drift;
     const radius = particle.size + Math.sin(particle.angle * 2) * 1.5;
 
     ctx.beginPath();
@@ -56,6 +78,19 @@ function draw() {
   });
 
   requestAnimationFrame(draw);
+}
+
+function updatePointer(event) {
+  const rect = canvas.getBoundingClientRect();
+  pointer.active = true;
+  pointer.x = event.clientX - rect.left;
+  pointer.y = event.clientY - rect.top;
+}
+
+function resetPointer() {
+  pointer.active = false;
+  pointer.x = canvas.offsetWidth * 0.67;
+  pointer.y = canvas.offsetHeight * 0.48;
 }
 
 function applyTheme(theme) {
@@ -108,8 +143,11 @@ toggle.addEventListener("click", () => {
 year.textContent = new Date().getFullYear();
 applyTheme(localStorage.getItem("portfolio-theme") || "light");
 resizeCanvas();
+resetPointer();
 draw();
 loadProfile();
 loadResumeInfo();
 
 window.addEventListener("resize", resizeCanvas);
+window.addEventListener("pointermove", updatePointer);
+window.addEventListener("pointerleave", resetPointer);

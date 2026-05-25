@@ -17,11 +17,11 @@ app.use(express.static(path.join(__dirname, "public"), {
 
 app.get("/api/profile", (_req, res) => {
   res.json({
-    name: "Your Name",
+    name: "Ajinkya Attarde",
     role: "Creative Developer",
     location: "Toronto, Canada",
     focus: ["Front-end UI", "Node.js", "Interactive Web"],
-    email: "hello@example.com"
+    email: "ajattarde@gmail.com"
   });
 });
 
