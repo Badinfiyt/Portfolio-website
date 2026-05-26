@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="/styles.css" />
 </head>
 
-<body>
+<body class="dark">
   <header class="site-header">
     <a class="brand" href="#home" aria-label="Go to home">
       <span class="brand-mark">AA</span>
@@ -19,31 +19,24 @@
     </a>
 
     <nav class="nav-links" aria-label="Primary navigation">
-      <a href="#work">Work</a>
       <a href="#skills">Skills</a>
       <a href="#resume">Resume</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
     </nav>
-
-    <button class="theme-toggle" type="button" aria-label="Toggle theme">
-      <span class="theme-icon">◐</span>
-    </button>
   </header>
 
   <main>
     <section class="hero" id="home">
       <canvas class="hero-canvas" aria-hidden="true"></canvas>
       <div class="hero-content">
-        <p class="eyebrow">Available for web projects</p>
-        <h1>Building polished digital experiences with code, clarity, and a little spark.</h1>
+        <h1>Hi, I am Ajinkya</h1>
         <p class="hero-copy">
           I create responsive websites, interactive interfaces, and practical Node.js tools
           that feel fast, thoughtful, and easy to use.
         </p>
         <div class="hero-actions" aria-label="Portfolio actions">
-          <a class="button primary" href="#work">View Projects</a>
-          <a class="button secondary" href="#resume">Resume</a>
+          <a class="button primary" href="#resume">Resume</a>
           <a class="button secondary" href="#contact">Contact Me</a>
         </div>
       </div>
@@ -63,78 +56,32 @@
       </aside>
     </section>
 
-    <section class="section" id="work">
-      <div class="section-heading">
-        <p class="eyebrow">Selected work</p>
-        <h2>Projects made for real users and real goals.</h2>
-      </div>
-
-      <div class="project-grid">
-        <article class="project-card">
-          <div class="project-visual visual-one"></div>
-          <div class="project-body">
-            <p class="project-type">Web App</p>
-            <h3>Studio Dashboard</h3>
-            <p>A clean admin interface for tracking clients, project stages, and deadlines.</p>
-            <div class="tags">
-              <span>HTML</span>
-              <span>CSS</span>
-              <span>JavaScript</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card">
-          <div class="project-visual visual-two"></div>
-          <div class="project-body">
-            <p class="project-type">Node.js</p>
-            <h3>API Toolkit</h3>
-            <p>A lightweight Express service with profile endpoints and reusable routing patterns.</p>
-            <div class="tags">
-              <span>Node</span>
-              <span>Express</span>
-              <span>REST</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card">
-          <div class="project-visual visual-three"></div>
-          <div class="project-body">
-            <p class="project-type">Interactive</p>
-            <h3>Motion Landing Page</h3>
-            <p>A responsive page with canvas animation, smooth scrolling, and theme controls.</p>
-            <div class="tags">
-              <span>Canvas</span>
-              <span>UI</span>
-              <span>Responsive</span>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
 
     <section class="section split-section" id="skills">
       <div class="section-heading">
         <p class="eyebrow">Skills</p>
-        <h2>Tools I use to turn ideas into working products.</h2>
+        <h2>Scalable digital experiences</h2>
       </div>
       <div class="skills-grid">
         <div class="skill-item">
-          <strong>HTML</strong>
-          <span>Semantic structure, accessibility, SEO-friendly content.</span>
+          <strong>JavaScript & Frontend Systems</strong>
+          <span>Building responsive, interactive interfaces with modern JavaScript frameworks, efficient state
+            management, and scalable frontend architecture.</span>
         </div>
         <div class="skill-item">
-          <strong>CSS</strong>
-          <span>Responsive layouts, modern styling, design systems.</span>
+          <strong>Node.js & Backend Architecture</strong>
+          <span>Designing backend systems with scalable APIs, optimized server logic, authentication workflows, and
+            high-performance services.</span>
         </div>
         <div class="skill-item">
-          <strong>JavaScript</strong>
-          <span>Dynamic interfaces, DOM logic, browser APIs.</span>
+          <strong>API Design & Integration</strong>
+          <span>Creating secure and maintainable REST APIs, structured data flows, and seamless integrations across
+            distributed systems.</span>
         </div>
         <div class="skill-item">
-          <strong>Node.js</strong>
-          <span>Express servers, JSON APIs, project tooling.</span>
+          <strong>Performance & Tooling</strong>
+          <span>Optimizing applications with modern tooling, efficient build pipelines, deployment automation, and
+            performance-focused engineering practices.</span>
         </div>
       </div>
     </section>
@@ -142,8 +89,8 @@
     <section class="section resume-section" id="resume">
       <div class="section-heading">
         <p class="eyebrow">Resume</p>
-        <h2>My current technical resume.</h2>
-        <p class="resume-note" id="resume-updated">PDF updates automatically when replaced in the resume folder.</p>
+        <h2>Resume</h2>
+        <p class="resume-note" id="resume-updated"></p>
       </div>
 
       <div class="resume-layout">

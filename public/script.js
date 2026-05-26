@@ -1,6 +1,5 @@
 const canvas = document.querySelector(".hero-canvas");
 const ctx = canvas.getContext("2d");
-const toggle = document.querySelector(".theme-toggle");
 const year = document.querySelector("#year");
 const profileLocation = document.querySelector("#profile-location");
 const focusList = document.querySelector("#focus-list");
@@ -38,7 +37,7 @@ function resizeCanvas() {
 function draw() {
   const width = canvas.offsetWidth;
   const height = canvas.offsetHeight;
-  const darkMode = document.body.classList.contains("dark");
+  const darkMode = true;
 
   ctx.clearRect(0, 0, width, height);
   ctx.globalCompositeOperation = "source-over";
@@ -93,10 +92,6 @@ function resetPointer() {
   pointer.y = canvas.offsetHeight * 0.48;
 }
 
-function applyTheme(theme) {
-  document.body.classList.toggle("dark", theme === "dark");
-  localStorage.setItem("portfolio-theme", theme);
-}
 
 async function loadProfile() {
   try {
@@ -127,7 +122,7 @@ async function loadResumeInfo() {
       month: "long",
       day: "numeric"
     });
-    resumeUpdated.textContent = `Last updated ${formattedDate}. Replace public/resume/resume.pdf to update this website.`;
+    resumeUpdated.textContent = `Last updated ${formattedDate}.`;
     resumeOpen.href = resume.file;
     resumeDownload.href = resume.file;
   } catch (error) {
@@ -135,13 +130,7 @@ async function loadResumeInfo() {
   }
 }
 
-toggle.addEventListener("click", () => {
-  const nextTheme = document.body.classList.contains("dark") ? "light" : "dark";
-  applyTheme(nextTheme);
-});
-
 year.textContent = new Date().getFullYear();
-applyTheme(localStorage.getItem("portfolio-theme") || "light");
 resizeCanvas();
 resetPointer();
 draw();
