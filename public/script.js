@@ -116,13 +116,17 @@ async function loadResumeInfo() {
       return;
     }
 
-    const updatedDate = new Date(resume.updatedAt);
-    const formattedDate = updatedDate.toLocaleDateString(undefined, {
-      year: "numeric",
-      month: "long",
-      day: "numeric"
-    });
-    resumeUpdated.textContent = `Last updated ${formattedDate}.`;
+    if (resume.updatedAt) {
+      const updatedDate = new Date(resume.updatedAt);
+      const formattedDate = updatedDate.toLocaleDateString(undefined, {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      });
+      resumeUpdated.textContent = `Last updated ${formattedDate}.`;
+    } else {
+      resumeUpdated.textContent = "Open or download the latest deployed resume PDF.";
+    }
     resumeOpen.href = resume.file;
     resumeDownload.href = resume.file;
   } catch (error) {
