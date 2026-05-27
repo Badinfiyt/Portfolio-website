@@ -4,7 +4,7 @@ const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const HOST = process.env.HOST || "127.0.0.1";
+const HOST = process.env.HOST || "0.0.0.0";
 const resumePath = path.join(__dirname, "public", "resume", "resume.pdf");
 
 app.use(express.static(path.join(__dirname, "public"), {
@@ -45,5 +45,6 @@ app.get("*", (_req, res) => {
 });
 
 app.listen(PORT, HOST, () => {
-  console.log(`Portfolio website running at http://${HOST}:${PORT}`);
+  const displayHost = HOST === "0.0.0.0" ? "127.0.0.1" : HOST;
+  console.log(`Portfolio website running at http://${displayHost}:${PORT}`);
 });
