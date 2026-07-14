@@ -1,146 +1,128 @@
 const canvas = document.querySelector(".hero-canvas");
-const ctx = canvas.getContext("2d");
-const year = document.querySelector("#year");
-const profileLocation = document.querySelector("#profile-location");
-const focusList = document.querySelector("#focus-list");
-const emailLink = document.querySelector("#email-link");
-const resumeUpdated = document.querySelector("#resume-updated");
-const resumeOpen = document.querySelector("#resume-open");
-const resumeDownload = document.querySelector("#resume-download");
+const ctx = canvas?.getContext("2d");
+const header = document.querySelector(".site-header");
+const menuToggle = document.querySelector(".menu-toggle");
+const navLinks = [...document.querySelectorAll(".nav-links a")];
+const glow = document.querySelector(".cursor-glow");
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-const pointer = {
-  active: false,
-  x: 0,
-  y: 0,
-  smoothX: 0,
-  smoothY: 0
+document.querySelector("#year").textContent = new Date().getFullYear();
+
+menuToggle?.addEventListener("click", () => {
+  const open = document.body.classList.toggle("menu-open");
+  menuToggle.setAttribute("aria-expanded", String(open));
+  menuToggle.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+});
+
+navLinks.forEach((link) => link.addEventListener("click", () => {
+  document.body.classList.remove("menu-open");
+  menuToggle?.setAttribute("aria-expanded", "false");
+}));
+
+const sections = [...document.querySelectorAll("main section[id]")];
+const updatePageState = () => {
+  header?.classList.toggle("scrolled", window.scrollY > 30);
+  const current = sections.reduce((active, section) =>
+    window.scrollY >= section.offsetTop - window.innerHeight * .4 ? section : active, sections[0]);
+  navLinks.forEach((link) => link.classList.toggle("active", link.hash === `#${current?.id}`));
 };
+window.addEventListener("scroll", updatePageState, { passive: true });
+updatePageState();
 
-const particles = Array.from({ length: 58 }, (_, index) => ({
-  angle: index * 0.42,
-  orbit: 80 + (index % 9) * 32,
-  speed: 0.002 + (index % 6) * 0.0007,
-  size: 2 + (index % 5)
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: .12 });
+document.querySelectorAll(".reveal").forEach((element, index) => {
+  element.style.transitionDelay = `${Math.min(index % 4, 3) * 70}ms`;
+  observer.observe(element);
+});
+
+if (!reduceMotion) {
+  window.addEventListener("pointermove", (event) => {
+    if (glow) {
+      glow.style.left = `${event.clientX}px`;
+      glow.style.top = `${event.clientY}px`;
+    }
+  });
+
+  document.querySelectorAll(".magnetic").forEach((element) => {
+    element.addEventListener("pointermove", (event) => {
+      const rect = element.getBoundingClientRect();
+      const x = (event.clientX - rect.left - rect.width / 2) * .16;
+      const y = (event.clientY - rect.top - rect.height / 2) * .16;
+      element.style.transform = `translate(${x}px, ${y}px)`;
+    });
+    element.addEventListener("pointerleave", () => { element.style.transform = ""; });
+  });
+}
+
+const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
+const dots = Array.from({ length: 42 }, (_, i) => ({
+  x: (i * 97) % 100 / 100,
+  y: (i * 53) % 100 / 100,
+  size: 1 + (i % 4) * .55,
+  phase: i * .7
 }));
 
 function resizeCanvas() {
-  const ratio = window.devicePixelRatio || 1;
-  canvas.width = canvas.offsetWidth * ratio;
-  canvas.height = canvas.offsetHeight * ratio;
+  if (!canvas || !ctx) return;
+  const ratio = Math.min(window.devicePixelRatio || 1, 2);
+  canvas.width = canvas.clientWidth * ratio;
+  canvas.height = canvas.clientHeight * ratio;
   ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-
-  if (!pointer.active) {
-    resetPointer();
-  }
 }
 
-function draw() {
-  const width = canvas.offsetWidth;
-  const height = canvas.offsetHeight;
-  const darkMode = true;
-
+function draw(time = 0) {
+  if (!canvas || !ctx) return;
+  const width = canvas.clientWidth;
+  const height = canvas.clientHeight;
   ctx.clearRect(0, 0, width, height);
-  ctx.globalCompositeOperation = "source-over";
+  pointer.x += (pointer.tx - pointer.x) * .035;
+  pointer.y += (pointer.ty - pointer.y) * .035;
 
-  const gradient = ctx.createLinearGradient(0, 0, width, height);
-  gradient.addColorStop(0, darkMode ? "rgba(91, 197, 186, 0.22)" : "rgba(15, 124, 117, 0.18)");
-  gradient.addColorStop(0.55, darkMode ? "rgba(240, 200, 90, 0.12)" : "rgba(244, 201, 93, 0.18)");
-  gradient.addColorStop(1, darkMode ? "rgba(241, 141, 101, 0.2)" : "rgba(216, 111, 69, 0.18)");
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, width, height);
-
-  ctx.globalCompositeOperation = "screen";
-  pointer.smoothX += (pointer.x - pointer.smoothX) * 0.08;
-  pointer.smoothY += (pointer.y - pointer.smoothY) * 0.08;
-
-  particles.forEach((particle, index) => {
-    particle.angle += particle.speed;
-    const baseX = width * 0.67 + Math.cos(particle.angle) * particle.orbit;
-    const baseY = height * 0.48 + Math.sin(particle.angle * 1.35) * (particle.orbit * 0.72);
-    const distanceX = pointer.smoothX - baseX;
-    const distanceY = pointer.smoothY - baseY;
-    const distance = Math.hypot(distanceX, distanceY);
-    const influence = pointer.active ? Math.max(0, 1 - distance / 520) : 0;
-    const drift = influence * (0.14 + (index % 6) * 0.018);
-    const x = baseX + distanceX * drift;
-    const y = baseY + distanceY * drift;
-    const radius = particle.size + Math.sin(particle.angle * 2) * 1.5;
-
+  dots.forEach((dot, i) => {
+    const drift = reduceMotion ? 0 : Math.sin(time * .00035 + dot.phase) * 14;
+    const x = dot.x * width + drift + pointer.x * ((i % 3) * .01);
+    const y = dot.y * height + Math.cos(time * .00025 + dot.phase) * 10 + pointer.y * ((i % 4) * .008);
     ctx.beginPath();
-    ctx.fillStyle = index % 3 === 0
-      ? "rgba(15, 124, 117, 0.42)"
-      : index % 3 === 1
-        ? "rgba(244, 201, 93, 0.38)"
-        : "rgba(216, 111, 69, 0.34)";
-    ctx.arc(x, y, Math.max(1.5, radius), 0, Math.PI * 2);
+    ctx.fillStyle = i % 5 === 0 ? "rgba(201,255,61,.65)" : "rgba(240,238,231,.18)";
+    ctx.arc(x, y, dot.size, 0, Math.PI * 2);
     ctx.fill();
   });
 
-  requestAnimationFrame(draw);
+  ctx.strokeStyle = "rgba(240,238,231,.05)";
+  ctx.lineWidth = 1;
+  for (let x = 0; x < width; x += 80) {
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, height); ctx.stroke();
+  }
+  if (!reduceMotion) requestAnimationFrame(draw);
 }
 
-function updatePointer(event) {
-  const rect = canvas.getBoundingClientRect();
-  pointer.active = true;
-  pointer.x = event.clientX - rect.left;
-  pointer.y = event.clientY - rect.top;
-}
-
-function resetPointer() {
-  pointer.active = false;
-  pointer.x = canvas.offsetWidth * 0.67;
-  pointer.y = canvas.offsetHeight * 0.48;
-}
-
+window.addEventListener("pointermove", (event) => {
+  pointer.tx = event.clientX - window.innerWidth / 2;
+  pointer.ty = event.clientY - window.innerHeight / 2;
+});
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
+draw();
 
 async function loadProfile() {
   try {
     const response = await fetch("/api/profile");
+    if (!response.ok) return;
     const profile = await response.json();
-    profileLocation.textContent = profile.location;
-    emailLink.textContent = profile.email;
-    emailLink.href = `mailto:${profile.email}`;
-    focusList.innerHTML = profile.focus.map((item) => `<li>${item}</li>`).join("");
+    const emailLink = document.querySelector("#email-link");
+    if (emailLink && profile.email) {
+      emailLink.childNodes[0].textContent = `${profile.email} `;
+      emailLink.href = `mailto:${profile.email}`;
+    }
   } catch (error) {
-    console.warn("Profile endpoint unavailable", error);
+    console.warn("Profile details are using the local fallback.", error);
   }
 }
-
-async function loadResumeInfo() {
-  try {
-    const response = await fetch("/api/resume");
-    const resume = await response.json();
-
-    if (!resume.available) {
-      resumeUpdated.textContent = "Resume PDF is not available yet.";
-      return;
-    }
-
-    if (resume.updatedAt) {
-      const updatedDate = new Date(resume.updatedAt);
-      const formattedDate = updatedDate.toLocaleDateString(undefined, {
-        year: "numeric",
-        month: "long",
-        day: "numeric"
-      });
-      resumeUpdated.textContent = `Last updated ${formattedDate}.`;
-    } else {
-      resumeUpdated.textContent = "Open or download the latest deployed resume PDF.";
-    }
-    resumeOpen.href = resume.file;
-    resumeDownload.href = resume.file;
-  } catch (error) {
-    console.warn("Resume endpoint unavailable", error);
-  }
-}
-
-year.textContent = new Date().getFullYear();
-resizeCanvas();
-resetPointer();
-draw();
 loadProfile();
-loadResumeInfo();
-
-window.addEventListener("resize", resizeCanvas);
-window.addEventListener("pointermove", updatePointer);
-window.addEventListener("pointerleave", resetPointer);
