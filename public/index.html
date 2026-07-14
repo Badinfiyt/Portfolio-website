@@ -1,139 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Personal Portfolio</title>
+  <meta name="description" content="Ajinkya Attarde is a Toronto-based creative developer building thoughtful, expressive web experiences." />
+  <meta name="theme-color" content="#070908" />
+  <title>Ajinkya Attarde — Creative Developer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css" />
 </head>
+<body>
+  <div class="cursor-glow" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
 
-<body class="dark">
   <header class="site-header">
-    <a class="brand" href="#home" aria-label="Go to home">
-      <span class="brand-mark">AA</span>
-      <span>Ajinkya Attarde</span>
+    <a class="brand magnetic" href="#home" aria-label="Ajinkya Attarde, back to home">
+      <span class="brand-orbit" aria-hidden="true"><i></i></span>
+      <span class="brand-name">AJINKYA<small>ATTARDE</small></span>
     </a>
 
+    <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+
     <nav class="nav-links" aria-label="Primary navigation">
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#resume">Resume</a>
-      <a href="#contact">Contact</a>
+      <a href="#about"><span>01</span>About</a>
+      <a href="#work"><span>02</span>Work</a>
+      <a href="#toolkit"><span>03</span>Toolkit</a>
+      <a href="#contact"><span>04</span>Contact</a>
     </nav>
+
+    <a class="availability magnetic" href="mailto:ajattarde@gmail.com">
+      <span></span> Available for ideas
+    </a>
   </header>
 
   <main>
     <section class="hero" id="home">
       <canvas class="hero-canvas" aria-hidden="true"></canvas>
-      <div class="hero-content">
-        <h1>Hi, I am Ajinkya</h1>
-        <p class="hero-copy">
-          I create responsive websites, interactive interfaces, and practical Node.js tools
-          that feel fast, thoughtful, and easy to use.
+      <div class="hero-index mono">TORONTO / 43.6532° N</div>
+      <div class="hero-copy">
+        <p class="kicker reveal">Creative developer · curious builder</p>
+        <h1 class="reveal">
+          I make digital
+          <span class="outline-word">ideas</span>
+          feel <em>alive.</em>
+        </h1>
+        <p class="hero-intro reveal">
+          I’m Ajinkya—a developer who blends clean engineering with playful interaction to turn useful products into memorable experiences.
         </p>
-        <div class="hero-actions" aria-label="Portfolio actions">
-          <a class="button primary" href="#resume">Resume</a>
-          <a class="button secondary" href="#contact">Contact Me</a>
+        <div class="hero-actions reveal">
+          <a class="button button-bright magnetic" href="#work">Explore my work <span>↘</span></a>
+          <a class="text-link" href="/resume/resume.pdf" target="_blank" rel="noreferrer">View résumé <span>↗</span></a>
         </div>
       </div>
-      <aside class="hero-panel" aria-label="Profile snapshot">
-        <div class="status-row">
-          <span class="status-dot"></span>
-          <span id="profile-location">Toronto, Canada</span>
-        </div>
-        <div>
-          <p class="panel-label">Current Focus</p>
-          <ul class="focus-list" id="focus-list">
-            <li>Back-end</li>
-            <li>Node.js</li>
-            <li>Interactive Web</li>
-          </ul>
-        </div>
-      </aside>
+
+      <div class="hero-art" aria-hidden="true">
+        <div class="art-ring ring-one"></div>
+        <div class="art-ring ring-two"></div>
+        <div class="art-core"><span>AA</span></div>
+        <p>IDEAS · CODE · MOTION ·</p>
+      </div>
+
+      <a class="scroll-cue" href="#about"><span></span>Scroll to discover</a>
     </section>
 
-
-    <section class="section about-section" id="about">
+    <div class="marquee" aria-hidden="true">
       <div>
-        <p class="eyebrow">About</p>
-        <h2>Crafting thoughtful digital experiences</h2>
+        <span>FRONT-END SYSTEMS</span><i>✦</i><span>NODE.JS</span><i>✦</i><span>INTERACTIVE WEB</span><i>✦</i><span>PRODUCT THINKING</span><i>✦</i>
+        <span>FRONT-END SYSTEMS</span><i>✦</i><span>NODE.JS</span><i>✦</i><span>INTERACTIVE WEB</span><i>✦</i><span>PRODUCT THINKING</span><i>✦</i>
       </div>
-      <p>
-        I am a developer driven by the pursuit of building high-performance, polished, and intuitive digital experiences. I strive to create applications that are technically scalable and efficient.
-      </p>
-    </section>
+    </div>
 
-    <section class="section split-section" id="skills">
-      <div class="section-heading">
-        <p class="eyebrow">Skills</p>
-        <h2>Scalable digital experiences</h2>
-      </div>
-      <div class="skills-grid">
-        <div class="skill-item">
-          <strong>JavaScript & Frontend Systems</strong>
-          <span>Building responsive, interactive interfaces with modern JavaScript frameworks, efficient state
-            management, and scalable frontend architecture.</span>
-        </div>
-        <div class="skill-item">
-          <strong>Node.js & Backend Architecture</strong>
-          <span>Designing backend systems with scalable APIs, optimized server logic, authentication workflows, and
-            high-performance services.</span>
-        </div>
-        <div class="skill-item">
-          <strong>API Design & Integration</strong>
-          <span>Creating secure and maintainable REST APIs, structured data flows, and seamless integrations across
-            distributed systems.</span>
-        </div>
-        <div class="skill-item">
-          <strong>Performance & Tooling</strong>
-          <span>Optimizing applications with modern tooling, efficient build pipelines, deployment automation, and
-            performance-focused engineering practices.</span>
+    <section class="section about" id="about">
+      <header class="section-label reveal"><span>01</span><p>About / approach</p></header>
+      <div class="about-grid">
+        <h2 class="reveal">Good software should work beautifully—and have a <em>point of view.</em></h2>
+        <div class="about-copy reveal">
+          <p>I care about the tiny details that shape how a product feels: the rhythm of a page, the clarity of an interaction, and the invisible engineering that keeps it fast.</p>
+          <p>Based in Toronto, I build across the stack and stay close to the people using what I make.</p>
+          <div class="about-facts">
+            <div><strong>43.65°</strong><span>Toronto based</span></div>
+            <div><strong>∞</strong><span>Always learning</span></div>
+            <div><strong>&lt;1s</strong><span>Speed obsessed</span></div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section resume-section" id="resume">
-      <div class="section-heading">
-        <p class="eyebrow">Resume</p>
-        <h2>Resume</h2>
-        <p class="resume-note" id="resume-updated"></p>
+    <section class="section work" id="work">
+      <header class="section-label reveal"><span>02</span><p>Selected work / experiments</p></header>
+      <div class="work-heading reveal">
+        <h2>Things I’ve made</h2>
+        <p>A mix of practical tools, intelligent systems, and experiments driven by curiosity.</p>
       </div>
 
-      <div class="resume-layout">
-        <div class="resume-actions">
-          <a class="button primary" id="resume-open" href="/resume/resume.pdf" target="_blank" rel="noreferrer">Open
-            PDF</a>
-          <a class="button secondary" id="resume-download" href="/resume/resume.pdf" download>Download</a>
-        </div>
-        <object class="resume-preview" data="/resume/resume.pdf" type="application/pdf" aria-label="Resume preview">
-          <p>
-            Your browser cannot preview this PDF.
-            <a href="/resume/resume.pdf">Open the resume PDF</a>.
-          </p>
-        </object>
+      <div class="projects">
+        <article class="project project-lime reveal">
+          <a class="project-visual" href="https://github.com/Badinfiyt" target="_blank" rel="noreferrer" aria-label="Explore Monster Wiki on GitHub">
+            <span class="project-number mono">01 / AI EXPERIMENT</span>
+            <div class="monster-mark"><span>M</span><i></i><i></i></div>
+            <div class="visual-caption mono">GENERATIVE STORIES / GPT-2</div>
+          </a>
+          <div class="project-info">
+            <div><h3>Monster Wiki</h3><p>A generative AI experiment that turns a prompt into an expanding world of creatures, lore, and unexpected connections.</p></div>
+            <ul><li>Python</li><li>GPT-2</li><li>Creative AI</li></ul>
+            <a class="circle-link magnetic" href="https://github.com/Badinfiyt" target="_blank" rel="noreferrer" aria-label="View project on GitHub">↗</a>
+          </div>
+        </article>
+
+        <article class="project project-violet reveal">
+          <a class="project-visual" href="https://github.com/Badinfiyt" target="_blank" rel="noreferrer" aria-label="Explore Ranked Choice Lab on GitHub">
+            <span class="project-number mono">02 / DATA TOOL</span>
+            <div class="ballot-art"><span>1</span><span>2</span><span>3</span><i></i></div>
+            <div class="visual-caption mono">RANK / COUNT / VISUALIZE</div>
+          </a>
+          <div class="project-info">
+            <div><h3>Ranked Choice Lab</h3><p>A clear, approachable voting tool that transforms ranked ballots into results people can inspect and understand.</p></div>
+            <ul><li>Python</li><li>Data</li><li>Algorithms</li></ul>
+            <a class="circle-link magnetic" href="https://github.com/Badinfiyt" target="_blank" rel="noreferrer" aria-label="View project on GitHub">↗</a>
+          </div>
+        </article>
+
+        <article class="project project-coral reveal">
+          <a class="project-visual" href="#home" aria-label="Explore this portfolio experience">
+            <span class="project-number mono">03 / INTERACTIVE WEB</span>
+            <div class="orbit-art"><span>WEB</span><i></i><i></i><i></i></div>
+            <div class="visual-caption mono">DESIGN / CODE / MOTION</div>
+          </a>
+          <div class="project-info">
+            <div><h3>Portfolio System</h3><p>A living identity built with expressive typography, responsive motion, and a lightweight Node.js foundation.</p></div>
+            <ul><li>JavaScript</li><li>Canvas</li><li>Node.js</li></ul>
+            <a class="circle-link magnetic" href="https://github.com/Badinfiyt/Portfolio-website" target="_blank" rel="noreferrer" aria-label="View source on GitHub">↗</a>
+          </div>
+        </article>
       </div>
     </section>
 
-    <section class="contact-section" id="contact">
-      <div>
-        <p class="eyebrow">Contact</p>
-        <h2>Have a project in mind?</h2>
-        <p>Send a note and I will get back to you soon.</p>
+    <section class="section toolkit" id="toolkit">
+      <header class="section-label reveal"><span>03</span><p>Toolkit / capabilities</p></header>
+      <div class="toolkit-grid">
+        <div class="toolkit-title reveal"><h2>Built for the whole journey.</h2><p>From rough idea to reliable release.</p></div>
+        <div class="capabilities">
+          <article class="capability reveal"><span class="mono">01</span><div><h3>Front-end craft</h3><p>Responsive interfaces, component systems, thoughtful motion, and accessibility that feels natural.</p><div class="tags"><i>JavaScript</i><i>HTML/CSS</i><i>UI systems</i></div></div></article>
+          <article class="capability reveal"><span class="mono">02</span><div><h3>Back-end thinking</h3><p>Simple, maintainable services and APIs built around real product needs—not unnecessary complexity.</p><div class="tags"><i>Node.js</i><i>REST APIs</i><i>Python</i></div></div></article>
+          <article class="capability reveal"><span class="mono">03</span><div><h3>Performance mindset</h3><p>Fast loads, lean dependencies, strong fundamentals, and details that hold up across devices.</p><div class="tags"><i>Optimization</i><i>Tooling</i><i>Deployment</i></div></div></article>
+        </div>
       </div>
-      <a class="button primary" id="email-link" href="mailto:ajattarde@gmail.com">ajattarde@gmail.com</a>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="contact-orbit" aria-hidden="true"><span>LET’S MAKE SOMETHING GOOD · </span></div>
+      <p class="kicker reveal">Have an idea worth building?</p>
+      <h2 class="reveal">Let’s make it <em>real.</em></h2>
+      <a class="contact-link magnetic reveal" id="email-link" href="mailto:ajattarde@gmail.com">ajattarde@gmail.com <span>↗</span></a>
     </section>
   </main>
 
   <footer class="site-footer">
-    <span>© <span id="year"></span> Ajinkya Attarde</span>
-    <a href="#home">Back to top</a>
+    <p>© <span id="year"></span> Ajinkya Attarde</p>
+    <p class="mono">DESIGNED + BUILT WITH CURIOSITY</p>
+    <div><a href="https://github.com/Badinfiyt" target="_blank" rel="noreferrer">GitHub ↗</a><a href="#home">Top ↑</a></div>
   </footer>
 
   <script src="/script.js"></script>
 </body>
-
 </html>
