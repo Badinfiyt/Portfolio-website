@@ -17,6 +17,7 @@ menuToggle?.addEventListener("click", () => {
 navLinks.forEach((link) => link.addEventListener("click", () => {
   document.body.classList.remove("menu-open");
   menuToggle?.setAttribute("aria-expanded", "false");
+  menuToggle?.setAttribute("aria-label", "Open navigation");
 }));
 
 const sections = [...document.querySelectorAll("main section[id]")];
